@@ -112,7 +112,7 @@ class IndexPage extends React.Component {
 
     return (
       <Layout>
-        <SEO title="Home" />
+        <SEO title="When to Beer?!" />
         <PageWrapper>
           <CenteredImageWrapper>
             <h1>Beer tiem!</h1>
@@ -165,8 +165,10 @@ class IndexPage extends React.Component {
 
     this.setState({ isSubmitting: true })
 
+    const code = process.env.GATSBY_FUNCTION_CODE
+    const partition = process.env.GATSBY_PARTITION
     const response = await postRequest(
-      "https://doodlereplacement.azurewebsites.net/api/InsertAnswer?code=gWFo3Rjwf37GZkMJRfGFsuybzdydvafeYwnSgFJlhtHMb8uApsGDwA==&partition=93d32b50-e93f-44ca-91d2-b6abe4e00621",
+      `InsertAnswer?code=${code}&partition=${partition}`,
       {
         name,
         additionalMessage,

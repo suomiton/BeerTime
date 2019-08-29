@@ -1,5 +1,6 @@
 export async function postRequest(url, data) {
-  return await fetch(url, {
+  const baseUrl = process.env.GATSBY_API_URL
+  return await fetch(`${baseUrl}${url}`, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",

@@ -1,6 +1,10 @@
+require("dotenv").config({
+  path: `.env`,
+})
+
 module.exports = {
   siteMetadata: {
-    title: `Doodle replacement`,
+    title: `Beer Time`,
     description: `I'm not paying for any Doodles. Suck it!`,
     author: `Toni Suominen`,
   },
