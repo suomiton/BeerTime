@@ -1,0 +1,19 @@
+@import "reset.css";
+@import url("https://fonts.googleapis.com/css?family=Livvic:300,500,700&display=swap");
+
+body {
+  font: 100%/1.618 Livvic, sans-serif;
+  overflow-x: hidden;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 10px 0 20px;
+  text-transform: uppercase;
+}
