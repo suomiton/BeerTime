@@ -81,11 +81,11 @@ const SubmitButton = styled.button`
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
-    const end = moment("2019-12-31")
+    const end = moment("2019-11-28")
     const dates = {}
 
     for (
-      let start = moment("2019-09-01");
+      let start = moment("2019-10-01");
       start.isBefore(end);
       start.add(1, "days")
     ) {
@@ -112,12 +112,12 @@ class IndexPage extends React.Component {
 
     return (
       <Layout>
-        <SEO title="When to Beer?!" />
+        <SEO title="Lanit millo?" />
         <PageWrapper>
           <CenteredImageWrapper>
-            <h1>Beer tiem!</h1>
+            <h1>Lanit millo?</h1>
             <img
-              src="https://media.giphy.com/media/KylMzku5T57A4/giphy.gif"
+              src="https://media.giphy.com/media/l2SpW34J18fYgHdRe/giphy.gif"
               alt="Party"
             />
           </CenteredImageWrapper>
@@ -126,7 +126,7 @@ class IndexPage extends React.Component {
           </SectionWrapper>
           <SectionWrapper>
             <InputGroup>
-              <label>Name</label>
+              <label>Nick</label>
               <TextInput
                 type="text"
                 name="name"
@@ -136,7 +136,7 @@ class IndexPage extends React.Component {
           </SectionWrapper>
           <SectionWrapper>
             <InputGroup>
-              <label>Wishes</label>
+              <label>Mitä pelataa</label>
               <TextArea
                 name="additionalMessage"
                 onChange={this.handleInputChange}
@@ -146,7 +146,7 @@ class IndexPage extends React.Component {
           {!isSubmitting && (
             <SectionWrapper className="centered">
               <SubmitButton type="button" onClick={this.onSubmit}>
-                Submit
+                Lähetä
               </SubmitButton>
             </SectionWrapper>
           )}

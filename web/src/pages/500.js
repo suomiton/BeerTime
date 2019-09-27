@@ -12,9 +12,9 @@ const PageWrapper = styled.div`
 const ErrorPage = () => (
   <Layout>
     <PageWrapper>
-      <h1>Well Shit! Everything is brokent on teh server.</h1>
+      <h1>Error! Oof.</h1>
       <img
-        src="https://media.giphy.com/media/cK0QSfVaTl62A/giphy.gif"
+        src="https://media.giphy.com/media/l2Sq0AdcQXKQ7yIH6/giphy.gif"
         alt="shit"
       />
     </PageWrapper>
