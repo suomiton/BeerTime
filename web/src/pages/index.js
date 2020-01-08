@@ -81,11 +81,11 @@ const SubmitButton = styled.button`
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
-    const end = moment("2019-11-28")
+    const end = moment("2020-06-01")
     const dates = {}
 
     for (
-      let start = moment("2019-10-01");
+      let start = moment("2020-01-06");
       start.isBefore(end);
       start.add(1, "days")
     ) {
