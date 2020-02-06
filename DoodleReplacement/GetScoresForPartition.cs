@@ -21,9 +21,20 @@ namespace DoodleReplacement
 				var partition = req.Query["partition"];
 
 				var service = new EntriesBL();
-				var model = await service.GetScoredResults(partition);
+				var config = await service.GetEntryConfig(partition);
 
-				return new OkObjectResult(model);
+				if(config == null) {
+					return new BadRequestResult();
+				}
+
+				var answers = await service.GetAnswerEntriesForPartition(partition);
+				var scores = service.GetScoredResults(answers);
+
+				return new OkObjectResult(new {
+					config,
+					scores,
+					answers
+				});
 			}
 			catch (Exception ex) {
 				log.LogError(ex.Message, ex);

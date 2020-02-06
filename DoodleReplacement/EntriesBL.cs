@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,19 @@ using System.Threading.Tasks;
 
 namespace DoodleReplacement {
 	internal sealed class EntriesBL {
+		public async Task<Config> GetEntryConfig(string partition) {
+			var container = await StorageService.GetStorageBlobReference();
+
+			var blob = container.GetBlockBlobReference($"{partition}.json");
+			
+			if(!(await blob.ExistsAsync())) {
+				throw new ArgumentException("Invalid request");
+			}
+
+			string result = await blob.DownloadTextAsync();
+			return JsonConvert.DeserializeObject<Config>(result);
+		}
+
 		public async Task<IEnumerable<AnswerAM>> GetAnswerEntriesForPartition(string partition) {
 			var table = await StorageService.GetStorageTableReference();
 
@@ -27,10 +41,9 @@ namespace DoodleReplacement {
 			return model;
 		}
 
-		public async Task<IEnumerable<DateScore>> GetScoredResults(string partition) {
-			var results = await GetAnswerEntriesForPartition(partition);
-			var totalResults = results.Count();
-			var dates = results.SelectMany(r => r.SelectedDates);
+		public IEnumerable<DateScore> GetScoredResults(IEnumerable<AnswerAM> answers) {
+			var totalResults = answers.Count();
+			var dates = answers.SelectMany(r => r.SelectedDates);
 
 			var scores = new List<DateScore>();
 
@@ -44,9 +57,9 @@ namespace DoodleReplacement {
 			return scores;
 
 			DateScore CalculateScore(DateTime date) {
-				var numberOfResults = results.Count(r => r.SelectedDates.Any(d => d.Equals(date)));
+				var numberOfResults = answers.Count(r => r.SelectedDates.Any(d => d.Equals(date)));
 				return new DateScore {
-					Score = Decimal.Divide(numberOfResults, totalResults),
+					Score = decimal.Divide(numberOfResults, totalResults),
 					TimeStamp = date
 				};
 			}
@@ -55,6 +68,11 @@ namespace DoodleReplacement {
 		public class DateScore {
 			public DateTime TimeStamp { get; set; }
 			public decimal Score { get; set; }
+		}
+
+		public class Config {
+			public string Title { get; set; }
+			public string WebHookUrl { get; set; }
 		}
 	}
 }

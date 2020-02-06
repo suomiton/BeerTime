@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DoodleReplacement
@@ -22,6 +23,13 @@ namespace DoodleReplacement
 			try
 			{
 				var partition = req.Query["partition"];
+
+				var service = new EntriesBL();
+				var config = await service.GetEntryConfig(partition);
+
+				if(config == null) {
+					return new BadRequestResult();
+				}
 
 				string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 				var model = JsonConvert.DeserializeObject<AnswerAM>(requestBody);
@@ -41,6 +49,12 @@ namespace DoodleReplacement
 				var table = await StorageService.GetStorageTableReference();
 
 				await table.ExecuteAsync(TableOperation.Insert(entity));
+
+				if(!string.IsNullOrEmpty(config.WebHookUrl)) {
+					using (var client = new HttpClient()) {
+						await client.PostAsync(config.WebHookUrl, null);
+					}
+				}
 
 				return new OkObjectResult(entity);
 			}

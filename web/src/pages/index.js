@@ -95,6 +95,24 @@ const SubmitButton = styled.button`
   font-size: 16px;
 `
 
+const AnswerList = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`
+
+const PersonWrapper = styled.li`
+  margin: 10px 0 20px;
+`
+const NameWrapper = styled.div``
+
+const MessageWrapper = styled.div`
+  color: #333;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 14px;
+`
+
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
@@ -132,6 +150,13 @@ class IndexPage extends React.Component {
         query={graphql`
           query {
             doodleScoredEntries {
+              config {
+                title
+              }
+              answers {
+                name
+                additionalMessage
+              }
               scores {
                 score
                 timeStamp
@@ -141,13 +166,17 @@ class IndexPage extends React.Component {
         `}
         render={data => {
           console.log(data)
-          const { scores } = data.doodleScoredEntries
+          const {
+            scores,
+            config: { title },
+            answers,
+          } = data.doodleScoredEntries
           return (
             <Layout>
-              <SEO title="Kaljaa?" />
+              <SEO title={title} />
               <PageWrapper>
                 <CenteredImageWrapper>
-                  <h1>Millon kaljaa?</h1>
+                  <h1>{title}</h1>
                   <img
                     src="https://media.giphy.com/media/YhSVi82JQiuFa/giphy.gif"
                     alt="Party"
@@ -184,6 +213,14 @@ class IndexPage extends React.Component {
                     </SubmitButton>
                   </SectionWrapper>
                 )}
+                <SectionWrapper>
+                  <h3>Vastanneet</h3>
+                  {!!answers && answers.length ? (
+                    this.renderAnswered(answers)
+                  ) : (
+                    <div>Ei vielä vastauksia</div>
+                  )}
+                </SectionWrapper>
               </PageWrapper>
             </Layout>
           )
@@ -258,6 +295,17 @@ class IndexPage extends React.Component {
       </InputGroup>
     )
   }
+
+  renderAnswered = answers => (
+    <AnswerList>
+      {answers.map((a, i) => (
+        <PersonWrapper key={i}>
+          <NameWrapper>{a.name}</NameWrapper>
+          <MessageWrapper>{a.additionalMessage}</MessageWrapper>
+        </PersonWrapper>
+      ))}
+    </AnswerList>
+  )
 
   handleCheckboxChange = event => {
     const { value } = event.target

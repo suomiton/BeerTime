@@ -15,7 +15,11 @@ exports.sourceNodes = async (
   const data = await response.json()
 
   if (data.length === 0) {
-    data.push({ score: 0, timeStamp: "" })
+    data.push({
+      config: { title: "" },
+      answers: { name: "", selectedDates: [], additionalMessage: "" },
+      scores: { score: 0, timeStamp: "" },
+    })
   }
 
   const toNodeData = (data, id, type) => {
@@ -34,7 +38,7 @@ exports.sourceNodes = async (
   }
 
   const nodeData = toNodeData(
-    { scores: data },
+    { config: data.config, scores: data.scores, answers: data.answers },
     "doodle-scored-entries",
     "DoodleScoredEntries"
   )
