@@ -32,6 +32,13 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: "gatsby-source-entryapi",
+      options: {
+        baseUrl:
+          "https://doodlereplacement.azurewebsites.net/api/GetScoresForPartition?code=DsdcT7Nn7u6HG8H4WtERoAIv1DbLKBbK2T1F7SZ7UavKxGOajuTTuQ==",
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

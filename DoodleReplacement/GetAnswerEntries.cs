@@ -20,23 +20,10 @@ namespace DoodleReplacement
 		{
 			try
 			{
-				var table = await StorageService.GetStorageTableReference();
 				var partition = req.Query["partition"];
 
-				TableContinuationToken token = null;
-				var model = new List<AnswerAM>();
-				var query = new TableQuery<AnswerEntity>().Where(
-					TableQuery.GenerateFilterCondition(
-						"PartitionKey", QueryComparisons.Equal,	partition
-					)
-				);
-
-				do
-				{
-					var queryResult = await table.ExecuteQuerySegmentedAsync(query, token);
-					model.AddRange(queryResult.Results.Select(AnswerAM.FromEntity));
-					token = queryResult.ContinuationToken;
-				} while (token != null);
+				var service = new EntriesBL();
+				var model = await service.GetAnswerEntriesForPartition(partition);
 
 				return new OkObjectResult(model);
 			}
