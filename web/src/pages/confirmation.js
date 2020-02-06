@@ -12,9 +12,9 @@ const PageWrapper = styled.div`
 const ConfirmationPage = () => (
   <Layout>
     <PageWrapper>
-      <h1>Juu!</h1>
+      <h1>Toiveesi on rekisteröity.</h1>
       <img
-        src="https://media.giphy.com/media/26uf7WGUJLbiqIryo/giphy.gif"
+        src="https://media.giphy.com/media/KJ1f5iTl4Oo7u/giphy.gif"
         alt="great"
       />
     </PageWrapper>

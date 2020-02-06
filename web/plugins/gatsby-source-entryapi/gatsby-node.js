@@ -14,6 +14,10 @@ exports.sourceNodes = async (
   const response = await fetch(`${baseUrl}&partition=${partition}`)
   const data = await response.json()
 
+  if (data.length === 0) {
+    data.push({ score: 0, timeStamp: "" })
+  }
+
   const toNodeData = (data, id, type) => {
     const content = JSON.stringify(data)
     const nodeData = Object.assign({}, data, {

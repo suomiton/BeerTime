@@ -102,7 +102,7 @@ class IndexPage extends React.Component {
     const dates = {}
 
     for (
-      let start = moment("2020-01-06");
+      let start = moment("2020-02-13");
       start.isBefore(end);
       start.add(1, "days")
     ) {
@@ -140,15 +140,16 @@ class IndexPage extends React.Component {
           }
         `}
         render={data => {
+          console.log(data)
           const { scores } = data.doodleScoredEntries
           return (
             <Layout>
-              <SEO title="Lanit millo?" />
+              <SEO title="Kaljaa?" />
               <PageWrapper>
                 <CenteredImageWrapper>
-                  <h1>Lanit millo?</h1>
+                  <h1>Millon kaljaa?</h1>
                   <img
-                    src="https://media.giphy.com/media/l2SpW34J18fYgHdRe/giphy.gif"
+                    src="https://media.giphy.com/media/YhSVi82JQiuFa/giphy.gif"
                     alt="Party"
                   />
                 </CenteredImageWrapper>
@@ -159,7 +160,7 @@ class IndexPage extends React.Component {
                 </SectionWrapper>
                 <SectionWrapper>
                   <FormGroup>
-                    <label>Nick</label>
+                    <label>Nimi</label>
                     <TextInput
                       type="text"
                       name="name"
@@ -169,7 +170,7 @@ class IndexPage extends React.Component {
                 </SectionWrapper>
                 <SectionWrapper>
                   <FormGroup>
-                    <label>Mitä pelataa</label>
+                    <label>Lisätoiveet</label>
                     <TextArea
                       name="additionalMessage"
                       onChange={this.handleInputChange}
