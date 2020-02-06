@@ -282,7 +282,7 @@ class IndexPage extends React.Component {
         key={index}
       >
         <ScoreWrapper title="Percentage of users voted this date!">
-          {!!score ? `${score} %` : ""}
+          {!!score ? `${score.toFixed(0)} %` : ""}
         </ScoreWrapper>
         <label>
           <input
