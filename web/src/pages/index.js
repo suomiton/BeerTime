@@ -116,11 +116,11 @@ const MessageWrapper = styled.div`
 class IndexPage extends React.Component {
   constructor(props) {
     super(props)
-    const end = moment("2020-06-01")
+    const end = moment("2020-12-31")
     const dates = {}
 
     for (
-      let start = moment("2020-02-13");
+      let start = moment("2020-09-01");
       start.isBefore(end);
       start.add(1, "days")
     ) {
